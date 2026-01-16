@@ -9,9 +9,6 @@ import AuthStack from "./auth/AuthStack";
 import AppStack from "./app/AppStack";
 import { Themes, initFontsAndThemes } from "../util/Styles";
 import { GlobalAppContextProvider, useGlobalAppContext } from "../util/GlobalAppContext";
-import { initFirebaseAppCheck } from "../util/firebase/firebaseAppCheck";
-import { setupNotifications } from "../util/firebase/firebaseCloudMessaging";
-import AdsHandler from "../core/AdsHandler";
 import ColorsHandler from "../core/ColorsHandler";
 import CoefficientHandler from "../core/CoefficientHandler";
 import AccountHandler from "../core/AccountHandler";
@@ -32,23 +29,9 @@ function AppRoot() {
   const [theme, setTheme] = useState(null);
   const [isAutoTheme, setIsAutoTheme] = useState(true);
 
-  // Context
-  const [canServeAds, setCanServeAds] = useState(false);
-  const [isAdsHandlerLoaded, setIsAdsHandlerLoaded] = useState(false);
-
   // Prepare function
   useEffect(() => { prepare(); }, []);
   async function prepare() {
-    // Load firebase app-check
-    initFirebaseAppCheck().then(() => {
-      console.log("Firebase AppCheck is setup !");
-    });
-
-    // Register for notifications
-    setupNotifications().then(() => {
-      console.log("Notifications registered");
-    })
-    
     // Load UI
     await initFontsAndThemes();
     const themeData = await StorageHandler.getData("theme");
@@ -66,10 +49,6 @@ function AppRoot() {
 
       await ColorsHandler.load();
       await CoefficientHandler.load();
-      
-      AdsHandler.setupAdmob({ checkForConsent: true, setCanServeAds: setCanServeAds, setIsAdsHandlerLoaded: setIsAdsHandlerLoaded });
-    } else {
-      AdsHandler.setupAdmob({ checkForConsent: false, setCanServeAds: setCanServeAds, setIsAdsHandlerLoaded: setIsAdsHandlerLoaded });
     }
     
     setIsLoaded(true);
@@ -81,8 +60,6 @@ function AppRoot() {
       loggedIn={isLoggedIn}
       autoTheme={isAutoTheme}
       savedTheme={theme}
-      _canServeAds={canServeAds}
-      _isAdsHandlerLoaded={isAdsHandlerLoaded}
     >
       <GlobalStack
         cameFromAuthStack={cameFromAuthStack}

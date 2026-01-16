@@ -1,6 +1,6 @@
 import { memo, useEffect } from "react";
 import { View, Text, Platform, Dimensions } from "react-native";
-import { BadgeHelpIcon, BugIcon, GithubIcon, HandHelpingIcon, MailIcon, ScaleIcon, Settings2Icon, WeightIcon } from "lucide-react-native";
+import { GithubIcon, HandHelpingIcon, MailIcon, ScaleIcon, Settings2Icon, WeightIcon } from "lucide-react-native";
 import useState from "react-usestateref";
 
 import CustomModal from "../../components/CustomModal";
@@ -58,14 +58,6 @@ function SettingsPage({ navigation }) {
             title={"Paramètres avancés"}
             icon={<Settings2Icon size={20} color={theme.colors.onSurfaceDisabled}/>}
             onPress={() => navigation.navigate('AdvancedSettingsPage', { presentation: 'modal' })}
-            style={{ marginBottom: 10 }}
-          />
-
-          {/* Ad settings */}
-          <CustomSimpleSectionButton
-            title={"Préférences de publicité"}
-            icon={<BadgeHelpIcon size={20} color={theme.colors.onSurfaceDisabled}/>}
-            onPress={() => navigation.navigate('AdsInformationPage', { presentation: 'modal' })}
           />
 
           {/* About */}
@@ -96,12 +88,6 @@ function SettingsPage({ navigation }) {
 
           {/* Bug report */}
           <CustomSection title={"Un problème ?"}/>
-          <CustomSimpleSectionButton
-            title={"Signaler un bug"}
-            textStyle={{ color: theme.colors.error }}
-            icon={<BugIcon size={20} color={theme.colors.error}/>}
-            onPress={() => navigation.navigate('BugReportPage', { presentation: 'modal' })}
-          />
           <CustomTextArea
             children={(
               <CustomLink
@@ -111,7 +97,6 @@ function SettingsPage({ navigation }) {
                 isSpecialLink
               />
             )}
-            style={{ marginTop: 10 }}
           />
 
           {/* Write a comment ? */}

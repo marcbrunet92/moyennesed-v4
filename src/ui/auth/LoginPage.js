@@ -10,8 +10,6 @@ import { useGlobalAppContext } from "../../util/GlobalAppContext";
 import { openLink } from "../../util/Utils";
 import AccountHandler from "../../core/AccountHandler";
 import HapticsHandler from "../../core/HapticsHandler";
-import CustomDynamicLoginChooser from "./CustomDynamicLoginChooser";
-
 
 // Login page
 function LoginPage({ navigation }) {
@@ -77,13 +75,6 @@ function LoginPage({ navigation }) {
 
             // Only for dev
             controller={usernameTextController}
-            customRightIcon={__DEV__ && (
-              <View style={{ position: 'absolute', right: 15 }}>
-                <CustomDynamicLoginChooser setSelected={(value) => {
-                  setUsername(`demoaccount-${value}`);
-                }}/>
-              </View>
-            )}
           />
           <CustomTextInput
             label={wrongPassword ? "Mot de passe incorrect" : "Mot de passe"}
